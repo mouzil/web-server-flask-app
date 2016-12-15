@@ -1,0 +1,23 @@
+---
+- name: Install wget
+  yum: name=wget state=installed
+- name: Install Python3.4
+  yum: name=python34 state=installed
+- name: Install Python flask packages
+  yum: name=python-devel state=installed
+- name: Get Python pip
+  shell: "wget https://bootstrap.pypa.io/get-pip.py"
+- name: Install Python pip
+  shell: "python3 get-pip.py"
+
+#---
+#- name: Install wget
+#  yum: name=wget state=installed
+#- name: Install Python3.4
+#  yum: name=Python34 state=installed
+#- name: Install Python flask packages
+#  yum: name=python-devel state=installed
+#- name: Get Python pip
+#  shell: "wget https://bootstrap.pypa.io/get-pip.py"
+#- name: Install Python pip
+#  shell: "python3 get-pip.py"

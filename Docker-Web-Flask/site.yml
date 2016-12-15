@@ -1,0 +1,7 @@
+---
+- name: installation des packages Python
+  hosts: all
+  remote_user: root
+
+  roles:
+    -

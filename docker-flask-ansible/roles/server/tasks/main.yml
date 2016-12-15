@@ -1,0 +1,15 @@
+---
+- name: copy static files
+  copy:
+    src: static
+    dest: "{{ server_dst_path }}"
+- name: copy templates files
+  copy:
+    src: templates
+    dest: "{{ server_dst_path }}"
+- name: copy a main python file
+  copy:
+    src: hello.py
+    dest: "{{ server_dst_path }}"
+- name: Run the server
+  shell: python3  {{ server_dst_path }}hello.py "runserver"

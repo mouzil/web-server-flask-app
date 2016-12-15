@@ -1,0 +1,37 @@
+---
+- hosts: centos
+  become: yes
+  #become_method: sudo
+
+  vars:
+    http_port: 80
+
+  tasks:
+    - name: lancement des mises à jour
+      yum: name=* state=latest
+
+    - name: install ntp package
+      yum:
+        name: ntp
+        state: latest
+
+    - name: verifie si ntp est up
+      service:
+         name: ntpd
+         state: started
+         enabled: yes
+
+    - name: copy a file
+      copy:
+        src: /home/stagiaire/toto1.txt/
+        dest: /home/mouzil/toto1.txt
+
+    - name: run date
+      shell: date
+      register: result
+      #when: ansible_os_family == "Centos"
+
+    - debug:
+        msg: "Date {{ result }}"
+
+

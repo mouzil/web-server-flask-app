@@ -1,0 +1,57 @@
+version: '2'
+
+services:
+    web:
+        image: devopsfme/docker-web_server_flask2
+        container_name: web_flask
+        #build:
+            #context: /home/stagiaire/PycharmProjects/docker-web_server_flask/
+        ports:
+           - "5000:5000"  #connexion navigateur
+        #network_mode: "host"
+        command: ["-h=0.0.0.0"] #on force à 0.0.0.0 car par défaut le web-server-flask prend 127.0.0.1
+    jmeter:
+        image: devopsfme/docker-jmeter2
+        container_name: jmeter_web_flask
+        #build:
+            #context: /home/stagiaire/PycharmProjects/docker-jmeter/
+        volumes:
+            - ./results:/results
+        command: ["-H","web", "-P", "5000"]
+        links:
+            - web
+    jenkins:
+        image: jenkins:alpine
+        hostname: localhost
+
+        #environment:
+            # external_url 'https://gitlab.example.com'
+            # Add any other gitlab.rb configuration here, each on its own line
+        ports:
+            - "8080:8080"
+            - "50000:50000"
+        volumes:
+            - /home/stagiaire/data-jenkins:/var/jenkins_home
+           # - /jenkins/config:/etc/jenkins
+           # - /jenkins/logs:/var/log/jenkins
+           #- /opt/jenkins/data:/var/opt/jenkins
+        links:
+            - gitlab
+
+    gitlab:
+        image: gitlab/gitlab-ce:8.9.6-ce.0
+        restart: always
+        hostname: '0.0.0.0'
+
+        environment:
+            GITLAB_OMNIBUS_CONFIG: |
+            # external_url 'https://gitlab.example.com'
+            # Add any other gitlab.rb configuration here, each on its own line
+        ports:
+            - "80:80"
+            - "443:443"
+            - "2222:22"
+        volumes:
+            - /opt/gitlab/config:/etc/gitlab
+            - /opt/gitlab/logs:/var/log/gitlab
+            - /opt/gitlab/data:/var/opt/gitlab

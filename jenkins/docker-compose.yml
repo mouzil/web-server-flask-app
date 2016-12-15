@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    jenkins:
+        image: jenkins:alpine
+        hostname: localhost
+        #environment:
+            #JAVA_OPTS: -Djava.util.logging.config.file=/var/jenkins_home
+        container_name: jenkins
+        restart: always
+        ports:
+            - "8080:8080"  #port interface
+            - "50000:50000"  #port jenkins
+        volumes:
+            - /home/stagiaire/data:/var/jenkins_home   #data doit être en 766

@@ -1,0 +1,6 @@
+---
+- name: Reload ansible_facts
+  setup:
+
+- name: dnf -y update \
+        && dnf

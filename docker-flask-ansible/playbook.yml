@@ -1,0 +1,13 @@
+---
+# This playbook will install flask server
+- name: Install Python, Flask packages, Server files
+  hosts: centos-server
+  remote_user: root
+  # remote_user: user
+  # sudo: yes
+
+  roles:
+    - python-dev
+    - flask
+    #- nginx
+    - server

@@ -42,14 +42,14 @@ def index():
     return render_template('index.html', form=form, result=session.get('result'))
 
 
-# if __name__ == '__main__':
-#     manager.run()
-
-# if __name__ == '__main__':
-#     manager.add_command('runserver', Server(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080))))
-#     manager.run()
+if __name__ == '__main__':
+    manager.run()
 
 if __name__ == '__main__':
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
+    manager.add_command('runserver', Server(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080))))
+    manager.run()
+
+# if __name__ == '__main__':
+#     app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
 
 os.system("python3 app.py runserver")
